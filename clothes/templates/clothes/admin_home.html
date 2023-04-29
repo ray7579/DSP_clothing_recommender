@@ -1,0 +1,23 @@
+{% extends 'clothes/base.html' %}
+
+{% block content %}
+    <div class="welcome-container">
+        <h1 class="welcome-header">Welcome to UWEFlix {{request.user.username}}</h1>
+    </div>
+    <style>
+        body {
+            color: rgb(0, 0, 0);
+        }
+
+        .welcome-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+        }
+
+        .welcome-header {
+            font-family: 'Andalé Mono', monospace;
+        }
+    </style>
+{% endblock %}

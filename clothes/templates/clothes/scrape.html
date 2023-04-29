@@ -1,0 +1,13 @@
+{% extends 'clothes/base.html' %}
+
+{% block content %}
+    <div class="welcome-container">
+        <h1 class="welcome-header">Scrape urban outfitters clothes. Once pressed, dont press anything and wait for the page redirect</h1>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Scrape Website</button>
+    </form>
+
+    
+{% endblock %}

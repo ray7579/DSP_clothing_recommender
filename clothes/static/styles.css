@@ -1,0 +1,163 @@
+
+body {
+    color: rgb(5, 5, 5);
+    font-family: 'Andalé Mono', monospace;
+}
+
+.welcome-header {
+    font-family: 'Andalé Mono', monospace;
+}
+.welcome-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+}
+
+.nav-link {
+    font-family: 'Andalé Mono', monospace;
+}
+
+.nav-item {
+    font-family: 'Andalé Mono', monospace;
+}
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: white;
+}
+.content {
+    padding-top: 100px; /* Adjust this value based on your navbar height */
+}
+
+/* Your other styles */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.product {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+}
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+}
+.product {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    box-sizing: border-box;
+}
+
+/* General styles */
+
+h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    font-family: 'Andalé Mono', monospace;
+}
+
+/* Navbar styles */
+.navbar {
+    background-color: white;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav-item {
+    margin-left: 1rem;
+}
+
+/* Product list styles */
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.product {
+    flex: 0 0 calc(25% - 20px);
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.content {
+    padding-top: 150px; /* Adjust this value based on the height of your navbar */
+    padding-left: 100px;
+    padding-right: 100px;
+
+}
+
+.product-image {
+    width: 100%; /* Adjust the width as needed */
+    height: auto; /* Maintain the aspect ratio */
+}
+
+.product-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.product-name {
+    height: 50px; /* Increase the fixed height to accommodate line-height */
+    margin-bottom: 2px;
+    overflow: hidden;
+    line-height: 1.5; /* Adjust the line-height to avoid overlapping */
+}
+
+.product-price {
+    margin-bottom: 10px; /* Add some margin to separate it from the bottom */
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    margin-top: 30px; /* Add some margin to separate it from the price */
+}
+
+.product-detail-image {
+    width: 30%;
+    object-fit: cover;
+}
+
+
+.product-detail-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-top: 50px;
+    margin-left: 20px;
+    margin-right: 40px;
+}
+
+.product-detail-info {
+    flex: 1;
+}
+
+
+.like-button {
+    background-color: white !important;
+    border: 1px solid #ccc !important; /* Optional: add a border to make the button more visible */
+}
+
+.comment-box {
+    position: relative;
+    display: inline-block;
+}
+
+.comment-box label {
+    position: absolute;
+    top: -1.2em; /* Adjust this value to position the label as needed */
+    left: 0.5em; /* Adjust this value to position the label as needed */
+    font-size: 0.8em; /* Adjust this value to change the font size */
+    color: #777; /* Adjust this value to change the font color */
+}

@@ -1,0 +1,23 @@
+{% extends 'clothes/base.html' %}
+
+{% block title %}Top 50 Most Liked Products{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Top 50 Most Liked Products</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mt-4">
+                    <div class="card">
+                        <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ product.name }}</h5>
+                            <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">{{ product.likes }} likes</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

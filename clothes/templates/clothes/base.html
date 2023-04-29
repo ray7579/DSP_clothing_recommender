@@ -1,0 +1,145 @@
+{% load static %}
+<html>
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css"
+         integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+        
+
+        <title>{% block title %} Clothes {% endblock %}</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="/">
+                <img src="{% static 'c.png' %}" alt="clothes" width="200" height="80">
+            </a>
+            <button class="navbar-toggler bg-white" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            {% if user.is_authenticated %}
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <span class="navbar-text">
+                        Hello {{request.user.username}}   
+                        </span>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'popular' %}">Popular</a>
+                    </li>
+                    <li class="nav-item"></li>
+                        <a class="nav-link" href="/recommendations">Recommendations</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                    {% if request.user.is_admin %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/scrape">Scrape</a>
+                    </li>
+                    {% endif %}
+                    <form class="form-inline my-2 my-lg-0 ml-auto" method="GET" action="{% url 'search' %}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </nav>
+
+        {% else %}
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="nav navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/products">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'popular' %}">Popular</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Login</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/register">Register</a>
+                    </li>
+                    <form class="form-inline my-2 my-lg-0 ml-auto" method="GET" action="{% url 'search' %}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="query">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </ul>
+            </div>
+        </nav>
+        {% endif %}
+        
+        <div id="content" name="content" class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+    
+        <!-- Optional JavaScript -->
+        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script>
+            //find cookie    
+            function getCookie(name) {
+                let cookieValue = null;
+                //check if there is a cookie
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    //loop through cookie
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        //if cookie contains the name
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            //decode
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+
+            //
+            function likeProduct(event, productId) {
+                //stop form from submitting
+                event.preventDefault();
+                const likeButton = event.target;
+                const url = `/products/${productId}/like/`;
+                //send post request to server to get cookie
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': getCookie('csrftoken'),
+                    },
+                })
+                    //once response recieved,
+                    .then((response) => response.json())
+                    .then((button) => {
+                        //if status is liked
+                        if (button.status === 'liked') {
+                            likeButton.textContent = 'Unlike';
+                        //if unliked 
+                        } else if (button.status === 'unliked') {
+                            likeButton.textContent = 'Like';
+                        //not logged in
+                        } else {    
+                            alert('To like the products on this site please login or register an account.');
+                        }
+                    });
+            }
+            
+        </script>
+    </body>
+</html>

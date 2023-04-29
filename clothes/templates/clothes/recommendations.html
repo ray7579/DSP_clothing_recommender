@@ -1,0 +1,20 @@
+{% extends 'clothes/base.html' %}
+
+{% block content %}
+    <h1>Recommended Products</h1>
+    <div class="container">
+        <div class="row">
+        {% for product in recommendations %}
+            <div class="col-md-3 col-sm-6">
+                <a href="{% url 'product_detail' pk=product.id %}">
+                    <img src="{{ product.image_url }}" alt="{{ product.name }}" class="product-image" loading="lazy">
+                </a>
+                <a href="{% url 'product_detail' pk=product.id %}">
+                    <p class="product-name">{{ product.name }}</p>
+                </a>
+                <p class="product-price">Price: £{{ product.price }}</p>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'clothes/base.html' %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+    <div class="container mt-4">
+        <h2>Showing Search Results for "{{ query }}"</h2>
+        <div class="row">
+            {% for product in products %}
+                <div class="col-md-4 mt-4">
+                    <div class="card">
+                        <a href="{% url 'product_detail' pk=product.id %}">
+                            <img src="{{ product.image_url }}" class="card-img-top" alt="{{ product.name }}">
+                        </a>
+                        <div class="card-body">
+                            <a href="{% url 'product_detail' pk=product.id %}">
+                                <h5 class="card-title">{{ product.name }}</h5>
+                            </a>
+                            <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">{{ product.likes }} likes</p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p>No search results found for "{{ query }}".</p>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
